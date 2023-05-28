@@ -10,7 +10,7 @@ You can run the project on your local to do this run install the dependencies wi
 
 ## ENDPOINTS
 You have to know this concepts
-1. __BASE_URL:__ _https://2dqp1ou7v4.execute-api.us-east-1.amazonaws.com/_
+1. __BASE_URL:__ _https://sx2s9792u8.execute-api.us-west-2.amazonaws.com_
 2. __ID_SWAPI:__ _this is the person's id from SWAPI API_
 3. __UID:__ _this is a unique id of a product in DynamoDB_
 
