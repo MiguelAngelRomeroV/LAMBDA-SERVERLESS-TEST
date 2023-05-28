@@ -1,0 +1,116 @@
+openapi: 3.0.0
+info:
+  title: lambda-serverless-api-test
+  version: 1.0.0
+servers:
+  - url: https://sx2s9792u8.execute-api.us-west-2.amazonaws.com
+paths:
+  /products:
+    get:
+      tags:
+        - General
+      summary: get all products
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+        '500':
+          description: Error response
+          content:
+            application/json: {}
+  /product/find/{productId}:
+    get:
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: string
+            minimum: 1
+            default: c3eead87-5095-454c-8714-3e8a2d4b7cc5
+          description: id product
+      tags:
+        - General
+      summary: get product
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}   
+  /product/update/{productId}:
+    put:
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: string
+            minimum: 1
+            default: c3eead87-5095-454c-8714-3e8a2d4b7cc5
+          description: id product
+      tags:
+        - General
+      summary: update product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                description: TV of 32''
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+        '500':
+          description: Error response
+          content:
+            application/json: {}                     
+  /product/delete/{productId}:
+    delete:
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: string
+            minimum: 1
+            default: c3eead87-5095-454c-8714-3e8a2d4b7cc5
+          description: id product
+      tags:
+        - General
+      summary: delete product
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+        '500':
+          description: Error response
+          content:
+            application/json: {}
+  /product/create:
+    post:
+      tags:
+        - General
+      summary: create product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: TV
+                description: TV of 24''
+                price: 30000
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+        '500':
+          description: Error response
+          content:
+            application/json: {}

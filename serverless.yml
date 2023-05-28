@@ -1,0 +1,64 @@
+service: lambda-serverless-test
+frameworkVersion: '3'
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: us-west-2
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:*
+          Resource:
+            - arn:aws:dynamodb:us-west-2:309222861519:table/products_table
+            - arn:aws:dynamodb:us-west-2:309222861519:table/swapi_table
+
+functions:
+  apiProducts:
+    handler: ./fn_product.handler
+    events:
+      - httpApi: '*'
+  getSpanishDataSWAPI:
+    handler: ./fn_swapi.handler
+    events:
+      - httpApi: 
+          path: /swapi/{id}
+          method: get    
+
+resources:
+  Resources:
+    ProductsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: productId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: productId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: products_table
+    SwapiTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: swapi_table
+
+custom:
+  esbuild:
+    bundle: true
+    minify: false
+
+plugins:
+  - serverless-offline
+  - serverless-esbuild
